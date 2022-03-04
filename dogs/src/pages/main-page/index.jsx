@@ -40,10 +40,8 @@ export const RandomDogsView = () => {
                 // I'd normally place url's inside of env file, but i'll save you the hassle
                 const { message } = await api("https://dog.ceo/api/breeds/list/all");
                 setDogsList(Object.keys(message));
-                console.log(message)
             } catch (e) {
                 setError(true);
-                setIsLoading(false);
             } finally {
                 setIsLoading(false);
             }
@@ -65,13 +63,11 @@ export const RandomDogsView = () => {
         try {
             const { message } = await api(`https://dog.ceo/api/breed/${breed}/images/random`);
             setDogsImage(message);
-            console.log(message)
         } catch (e) {
             setError(true);
-            setIsLoading(false);
         } finally {
-            setIsLoading(false);
             setDogsBreed(breed);
+            setIsLoading(false);
             onOpen();
         }
     }
