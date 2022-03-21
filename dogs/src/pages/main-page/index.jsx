@@ -1,4 +1,4 @@
-import {commonObjectGet} from "../../api/apiRequest";
+import {api} from "../../api/apiRequest";
 import {DogTile} from "../../components/dogTile";
 import React, {useEffect, useState} from "react";
 import {MoonIcon, SunIcon} from '@chakra-ui/icons';
@@ -38,12 +38,10 @@ export const RandomDogsView = () => {
             setError(false);
             try {
                 // I'd normally place url's inside of env file, but i'll save you the hassle
-                const { message } = await commonObjectGet("https://dog.ceo/api/breeds/list/all");
+                const { message } = await api("https://dog.ceo/api/breeds/list/all");
                 setDogsList(Object.keys(message));
-                console.log(message)
             } catch (e) {
                 setError(true);
-                setIsLoading(false);
             } finally {
                 setIsLoading(false);
             }
@@ -56,22 +54,20 @@ export const RandomDogsView = () => {
     }
 
     const loadNextImage = async () => {
-        const { message } = await commonObjectGet(`https://dog.ceo/api/breed/${dogsBreed}/images/random`);
+        const { message } = await api(`https://dog.ceo/api/breed/${dogsBreed}/images/random`);
         setDogsImage(message);
     }
 
     const loadDogsRandomImage = async (e) => {
         const breed = e.target.textContent;
         try {
-            const { message } = await commonObjectGet(`https://dog.ceo/api/breed/${breed}/images/random`);
+            const { message } = await api(`https://dog.ceo/api/breed/${breed}/images/random`);
             setDogsImage(message);
-            console.log(message)
         } catch (e) {
             setError(true);
-            setIsLoading(false);
         } finally {
-            setIsLoading(false);
             setDogsBreed(breed);
+            setIsLoading(false);
             onOpen();
         }
     }

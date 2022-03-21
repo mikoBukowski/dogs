@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export async function commonObjectGet(url){
+export async function api(url){
     const {data} = await axios.get(url)
     return data;
 }
